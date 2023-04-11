@@ -1,0 +1,98 @@
+<html>
+    <head><link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css"></head>
+    <body>
+        <h1>TBT Impact demo</h1>
+        <article  style="max-height:200px;overflow: scroll;">
+            <h2>Lorem ipsum</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dignissim posuere ex sed varius. Curabitur dapibus
+            condimentum enim eget ultrices. Nam turpis nisi, commodo ut felis ut, dignissim ullamcorper velit. Quisque velit nulla,
+            porttitor ut luctus at, ultricies sit amet ex. Vestibulum hendrerit erat eget magna dignissim, eu luctus est convallis.
+            Integer id nisi tempus, venenatis velit a, dictum diam. Proin faucibus maximus rutrum. Praesent felis velit, congue eu
+            mollis ac, cursus non eros. Vestibulum a fermentum metus. Etiam et nibh urna.</p>
+            
+            <p>In hac habitasse platea dictumst. Nunc placerat sodales purus, mattis mollis augue venenatis finibus. Duis hendrerit
+            sagittis consectetur. Donec et quam vitae libero gravida ornare. Integer a ligula eget metus elementum cursus. Nam
+            fermentum diam purus, eget bibendum lorem pellentesque sed. Nulla mattis lorem mauris, eget egestas massa dignissim
+            sodales. Curabitur at commodo purus. Etiam mollis vulputate lacus, ac congue enim consequat ut. Phasellus tristique quam
+            et nulla scelerisque, eu porta erat tristique. Nunc aliquet aliquet purus, euismod dapibus nunc molestie in. In aliquet
+            nisi vel maximus eleifend. Aenean ut mauris quis felis varius porttitor. Vivamus non ullamcorper tellus, viverra
+            tristique orci. Phasellus sed ex nec enim tincidunt malesuada. Duis consequat elit ex, eget mollis tellus sodales et.</p>
+            
+            <p>Nullam blandit sodales pharetra. Donec ipsum neque, lobortis vitae neque vel, laoreet scelerisque ante. Sed pulvinar
+            urna rhoncus turpis convallis vehicula. Maecenas porta nec diam in faucibus. Morbi commodo purus ex, id semper lectus
+            tristique et. Vivamus massa metus, interdum sit amet convallis quis, pharetra non mauris. Aliquam erat volutpat.
+            Curabitur cursus at ligula at cursus. Vivamus maximus luctus tincidunt.</p>
+            
+            <p>Etiam a lectus quis dolor volutpat tempus et eget augue. Etiam sit amet iaculis mauris, in suscipit est. Fusce aliquam
+            neque nisi, a tincidunt enim suscipit eu. Donec malesuada eros eget porta faucibus. Aliquam sit amet pharetra velit, vel
+            fermentum neque. Suspendisse quis enim sed risus ullamcorper tempus ut ac arcu. Sed lobortis, massa ut tincidunt
+            ultricies, enim enim convallis neque, non lobortis tortor magna at erat. Donec sollicitudin porttitor eleifend. Sed
+            interdum porttitor ornare.</p>
+            
+            <p>Curabitur sed risus finibus, bibendum tellus vel, fringilla neque. Integer placerat lacus ante, at semper quam viverra
+            at. In leo nunc, fringilla in ipsum at, sollicitudin malesuada nulla. Fusce tristique, purus at cursus mollis, ante
+            dolor fermentum ligula, eget tristique dolor dui nec erat. Nullam sit amet euismod justo. Curabitur in ultrices elit.
+            Vestibulum risus nunc, semper eu suscipit at, accumsan in tellus. Duis non viverra nulla. In felis neque, suscipit sit
+            amet sapien vitae, scelerisque volutpat odio. Quisque enim dolor, gravida quis placerat eu, convallis sed augue. Integer
+            vel libero blandit, pellentesque ante vel, molestie ex. Nunc tincidunt turpis vel posuere efficitur. Maecenas vitae
+            tellus eget lorem commodo tincidunt. Etiam commodo non massa et tincidunt. Phasellus pellentesque nunc non nisi semper
+            finibus. Cras gravida arcu arcu, vel fermentum dui volutpat at.</p>
+        </article>
+        <ul class="list">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+        <a href="https://www.theodo.fr" target="_blank">Theodo</a>
+        <span class="time"></span>
+        <progress id="progressbar" max="100" value="0"></progress>
+        <div>
+            <button onClick="blockForTime(5)">Block 5s</button>
+            <button onClick="addElement()">Add item</button>
+            <button onClick="startInterval()">Start</button>
+            <button onClick="stopInterval()">Stop</button>
+        </div>
+        <script>
+            const blockForTime = (timeInSeconds) => {
+                const end = Date.now() + timeInSeconds * 1000;
+                let now = Date.now();
+                while(now < end) {
+                    now = Date.now();
+                }
+            }
+
+            const addElement = () => {
+                const newLi = document.createElement('li');
+                const liContent = document.createTextNode('new li');
+                newLi.appendChild(liContent);
+
+                document.getElementsByClassName('list')[0].appendChild(newLi);
+            }
+
+            const displayTime = () => {
+                document.getElementsByClassName('time')[0].innerText = Date().toLocaleString();
+            }
+
+            let currentProgress = 0, direction = 1;
+            const updateProgress = () => {
+                currentProgress += direction * 5;
+                if(currentProgress >= 100 || currentProgress <= 0) direction = -1 * direction;
+                document.getElementById('progressbar').value = currentProgress;
+            }
+
+            let timeInterval,progressInterval = null;
+            const startInterval = () => {
+                timeInterval = setInterval(displayTime, 1000);
+                progressInterval = setInterval(updateProgress, 100);
+            }
+            const stopInterval = () => {
+                clearInterval(timeInterval);
+                clearInterval(progressInterval);
+            }
+
+            displayTime();
+            startInterval();
+        </script>
+    </body>
+
+</html>
